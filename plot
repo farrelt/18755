@@ -5,7 +5,7 @@ with open('firstNetwork.csv') as csv_file:
 
     with open('FN_r3510c.csv', mode='a') as csv_network:
         csv_network = csv.writer(csv_network, delimiter=',')
-         for row in csv_reader:
+        for row in csv_reader:
             row = list(map(float, row))
             for x in range(0, len(row)):
                 if row[x] == 0.0:
