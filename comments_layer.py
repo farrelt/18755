@@ -7,6 +7,7 @@ from os import listdir
 from os.path import isfile, join
 import re
 import numpy
+import os
 
 
 
@@ -27,15 +28,15 @@ class commentsLayer(object):
     def __init__(self):
         self.bus_id = []
         self.review = []
-        self.folderPath = '/Users/yifan/Documents/18Fall/18755/yelp_dataset/restarauntsData/'
-        print('prepare docLabels...')
-        self.docLabels = [f for f in listdir(self.folderPath)]
-        print('prepare data...')
-        self.data = self.readDoc()
-        print('finished initialization...')
+        self.folderPath = "C:/Users/Farreltin/Documents/fall2018/CourseData/result/"
+        #print('prepare docLabels...')
+        #self.docLabels = [f for f in listdir(self.folderPath)]
+        #print('prepare data...')
+        #self.data = self.readDoc()
+        #print('finished initialization...')
         # two libraries used to preprocess the comment
-        self.tokenizer = RegexpTokenizer(r'\w+')
-        self.stopword_set = set(stopwords.words('english'))
+        #self.tokenizer = RegexpTokenizer(r'\w+')
+        #self.stopword_set = set(stopwords.words('english'))
     
     def initVariables(self):
         l = loadingData()
@@ -52,16 +53,17 @@ class commentsLayer(object):
     #create comment txt files
     def com2txt(self):
         business_c = []
-        counter = 0
+        self.initVariables()
         print('Writing comments to txt...')
+
         for i in range(len(self.review)):
-            if (self.review[i]["business_id"] in self.bus_id):
-                text = self.review[i]["text"]
-                business_c.append(text)
-                osPath = self.folderPath+'comment['+ str(counter)+'].txt'
-                counter += 1
-                with open(osPath,'w') as file:
-                    file.write("%s\n" % text.encode('utf-8'))
+            text = self.review[i]["text"]
+            busid = self.review[i]["business_id"]
+            id = self.review[i]["review_id"]
+            business_c.append(text)
+            osPath = self.folderPath+ busid + 'comment[' + id+'].txt'
+            with open(osPath,'w') as file:
+                file.write("%s\n" % text.encode('utf-8'))
         print('finished writing txt!')
         return 0
     
@@ -121,8 +123,8 @@ class commentsLayer(object):
         return 0
 
 c = commentsLayer()
-#c.createModel()
-c.createNetwork()
+c.com2txt()
+#c.createNetwork()
 
 
 

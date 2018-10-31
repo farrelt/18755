@@ -1,4 +1,11 @@
 import json
+import os
+from dateutil.parser import parse
+
+
+
+
+HOMEDIR = "C:/Users/Farreltin/Documents/fall2018/CourseData/"
 
 #creating an object to get each variable easier and don't have to change a lot of code
 class loadingData(object):
@@ -10,34 +17,46 @@ class loadingData(object):
     
     def getBid(self):
         business_data = []
-        for line in open('yelp_academic_dataset_business.json', 'r'):
+        file = 'yelp_academic_dataset_business.json'
+        for line in open(HOMEDIR + file, 'r', encoding="utf8"):
             business_data.append(json.loads(line))
         
         pittsburgh_list = []
         business_id = []
-        #star = []
 
-        #print(business_data[0])
-        for i in range(len(business_data)):
-            if (business_data[i]["city"] == "Pittsburgh"):
+        count = 0
+
+        while count < 2000
+            for i in range(len(business_data)):
                 cat = business_data[i]["categories"]
                 if not (cat is None):
                     if ("Restaurants" in cat):
                         pittsburgh_list.append(business_data[i])
                         business_id.append(business_data[i]["business_id"])
-                        #star.append(business_data[i]["stars"])
+        business_id = business_id[0:2000]
+        print('done!')
         return business_id
     
     def getRev(self):
         review = []
-        for line in open('yelp_academic_dataset_review.json', 'r'):
-            review.append(json.loads(line))
-        #print(review[0])
+        file = 'yelp_academic_dataset_review.json'
+        for line in open(HOMEDIR + file, 'r', encoding="utf8"):
+            r = json.loads(line)
+            if r["business_id"] in self.business_id:
+                if (parse(r["date"]) > parse("2017/01/01")) and (parse(r["date"]) < parse("2017/07/01")):
+                    busid = r["business_id"]
+                    folderPath = "C:/Users/Farreltin/Documents/fall2018/CourseData/result/" + busid
+                    if not os.path.exists(folderPath):
+                        os.makedirs(folderPath)
+                    id = r["review_id"]
+                    osPath = folderPath + '/comment[' + id + '].json'
+                    with open(osPath, 'w') as file:
+                        json.dump(r, file)
+                    review.append(r)
         return review
     
     def run(self):
-        #print(self.business_id[0])
         return 0
 
-'''a = Thai()
-a.run()'''
+a = loadingData()
+a.run()
