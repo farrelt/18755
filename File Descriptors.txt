@@ -1,0 +1,34 @@
+averageVectorization
+	> Given mode2vec features for each review in business, getting a single 
+	feature for each busniess.
+	> Averaging the review for each node/comment. Normal averaging at this
+	point. 
+	> Implement the weighted technique suggested by Kartikeya.
+
+classifier
+	> Script to take the output star rating and convert it into a one-hot 
+	vector.
+		
+decisionTree
+	> Further investigation required. 
+	> Don't remember the source of the code either. 
+	
+extractingVectorFromNetwork
+	> node2vec feature extraction. (Window basis)
+	
+extractStarRating
+	> Get the average star rating for a business. (Window basis)
+	
+oneHotEncoding
+	> Script to take the output star rating and convert it into a one-hot 
+	vector.
+	
+NN4
+	> Multiclass logistic regression
+	
+NN5
+	> Multilevel perceptron classifier
+
+XandY
+	> Compute i/p X and o/p y
+	
